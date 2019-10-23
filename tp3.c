@@ -18,8 +18,15 @@ int main( int argc, char * argv[]){
             case -1:fprintf(stderr,"Erreur sur le fork\n");
                     exit(1);
             case 0: /* Le processus est un fils */
-                    for(int j = 0; j < k; j++)
-                        execl(c,c,NULL);
+                    for(int j = 0; j < k; j++){
+                        switch(fork()){
+                            case -1:fprintf(stderr,"Erreur sur le fork\n");
+                                    exit(1);
+                            case 0: /* Le processus est un petit fils */
+                                     execl(c,c,NULL);
+                            default: /* Le processus est un fils */
+                        }
+                    }
             default: /* Le processus est le père */
         }
     }
