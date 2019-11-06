@@ -18,19 +18,28 @@ int main( int argc, char * argv[]){
             case -1:fprintf(stderr,"Erreur sur le fork\n");
                     exit(1);
             case 0: /* Le processus est un fils */
+                    if(!gettimeofday(&tdeb, )){
+                        fprintf(stderr,"Problème récupération du temps\n");
+                        exit(2);
+                    }
                     for(int j = 0; j < k; j++){
                         switch(fork()){
                             case -1:fprintf(stderr,"Erreur sur le fork\n");
-                                    exit(1);
+                                    exit(3);
                             case 0: /* Le processus est un petit fils */
                                     switch(fork()){
                                         case -1:fprintf(stderr,"Erreur sur le fork\n");
-                                            exit(1);
+                                            exit(4);
                                         case 0: execl(c,c,NULL);
                                         default:
                                     }
                             default: /* Le processus est un fils */
                         }
+                    }
+                    while(wait(&cr) == -1);
+                    if(!gettimeofday(&tfin, )){
+                        fprintf(stderr,"Problème récupération du temps\n");
+                        exit(5);
                     }
             default: /* Le processus est le père */
         }
