@@ -23,7 +23,12 @@ int main( int argc, char * argv[]){
                             case -1:fprintf(stderr,"Erreur sur le fork\n");
                                     exit(1);
                             case 0: /* Le processus est un petit fils */
-                                     execl(c,c,NULL);
+                                    switch(fork()){
+                                        case -1:fprintf(stderr,"Erreur sur le fork\n");
+                                            exit(1);
+                                        case 0: execl(c,c,NULL);
+                                        default:
+                                    }
                             default: /* Le processus est un fils */
                         }
                     }
@@ -32,3 +37,7 @@ int main( int argc, char * argv[]){
     }
 
 }
+
+// prendre le temps avant l'exec des k commandes
+// diviser par le nombre de commandes à la fin
+// faire un exec.h comme Mathieu c'est smart
