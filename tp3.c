@@ -8,6 +8,21 @@
 #include <sys/wait.h>
 #include <math.h>
 
+float* tri(float tab[], int taille){
+    int i;
+    float temp;
+    for( i=0; i< taille; i++){
+        for(int j = 0; j < taille-i; j++){
+            if(tab[j] > tab[j+1]){
+                j = tab[j];
+                tab[j] = tab[j+1];
+                tab[j+1] = temp;
+            }
+        }
+    }
+    return tab;
+}
+
 // TRIER LE TABLEAU !!!
 int main( int argc, char * argv[]){
 
@@ -24,7 +39,7 @@ int main( int argc, char * argv[]){
     int tube[2], cr, no_err, i = 0, j, pid,x;
     pipe(tube);
     struct timeval tdebv, tfinv;
-    float tempsmoy = 0, temp, lesTemps[n], tempsfils;
+    float tempsmoy = 0, temp, lesTemps[n], *tabTrie, tempsfils;
 
     for(int i = 0; i < n; i++){
         if((no_err = fork()) == 0){
@@ -92,13 +107,15 @@ int main( int argc, char * argv[]){
         tempsmoy /= 1000000;
         printf("Temps Moyen d'execution de %s = %.4f \n\n", c, tempsmoy);
 
+        tabTrie = tri(lesTemps,i);
+
         printf("\tN° Processus i\t|\tMi (en sec)\n");
         printf("-------------------------------------------\n");
         for(j = 0; j < n; j++){
-            printf("\t%d\t\t|\t%.4f \n", j, lesTemps[j]);
+            printf("\t%d\t\t|\t%.4f \n", j, tabTrie[j]);
         }
 
-        printf("\nLe résultat final est le milieu du tableau, tab[%d] = %.4f sec\n\n", i/2, lesTemps[i/2]);
+        printf("\nLe résultat final est le milieu du tableau, tab[%d] = %.4f sec\n\n", i/2, tabTrie[i/2]);
         exit(0);
     
 }
