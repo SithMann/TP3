@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <math.h>
 
+// TRIER LE TABLEAU !!!
 int main( int argc, char * argv[]){
 
     if(argc != 4){
@@ -79,7 +80,7 @@ int main( int argc, char * argv[]){
         else
             fprintf(stderr, "Fin du processus fils avec un cr != 0, numero de cr = %d\n", cr>>8);
         exit(7);
-    }else{
+    }
         close(tube[1]);
         while(read(tube[0], &temp, sizeof(float))){
             tempsmoy += temp;
@@ -99,5 +100,5 @@ int main( int argc, char * argv[]){
 
         printf("\nLe résultat final est le milieu du tableau, tab[%d] = %.4f sec\n\n", i/2, lesTemps[i/2]);
         exit(0);
-    }
+    
 }
