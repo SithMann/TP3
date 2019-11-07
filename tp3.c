@@ -51,10 +51,10 @@ int main( int argc, char * argv[]){
             if(cr != 0){
                 /*Interruption par signal, les bits de poids faibles contiennent le numero, les autres sont à 0 */
                 if(cr>>8 == 0)
-                    fprintf(stderr, "Fin du processus %d interrompu par un signal, numero de signal = %d\n ", pid, cr);
+                    fprintf(stderr, "Fin du processus de la commande interrompu par un signal, numero de signal = %d\n ",cr);
                 /* exit du fils != 0, code retour du fils dans les 8 bits de poids forts, les autres sont à 0*/
                 else
-                    fprintf(stderr, "Fin du processus %d avec un cr != 0, numero de cr = %d\n", pid, cr>>8);
+                    fprintf(stderr, "Fin du processus de la commande avec un cr != 0, numero de cr = %d\n", cr>>8);
                 exit(5);
             }else{
                 if(gettimeofday(&tfinv, NULL)){
@@ -75,10 +75,10 @@ int main( int argc, char * argv[]){
     if(cr != 0){
         /*Interruption par signal, les bits de poids faibles contiennent le numero, les autres sont à 0 */
         if(cr>>8 == 0)
-            fprintf(stderr, "Fin du processus %d interrompu par un signal, numero de signal = %d\n ", pid, cr);
+            fprintf(stderr, "Fin du processus fils interrompu par un signal, numero de signal = %d\n ", cr);
         /* exit du fils != 0, code retour du fils dans les 8 bits de poids forts, les autres sont à 0*/
         else
-            fprintf(stderr, "Fin du processus %d avec un cr != 0, numero de cr = %d\n", pid, cr>>8);
+            fprintf(stderr, "Fin du processus fils avec un cr != 0, numero de cr = %d\n", cr>>8);
         exit(7);
     }else{
         close(tube[1]);
