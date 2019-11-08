@@ -11,13 +11,11 @@
 /* fonction de comparaison pour effectuer le tri du tableau */
 static int compare (void const *a, void const *b)
 {
-   /* definir des pointeurs type's et initialise's
-      avec les parametres */
    float const *pa = a;
    float const *pb = b;
 
    /* evaluer et retourner l'etat de l'evaluation (tri croissant) */
-   return *pa - *pb;
+   return *pa > *pb;
 }
 
  
@@ -125,7 +123,7 @@ int main( int argc, char * argv[]){
         }
         
 
-        printf("\n===== Temps Moyen d'execution de %s, tab[%d] = %.4f sec =====\n\n",c, i/2, lesTemps[i/2]);
+        printf("\n===== Temps Median d'execution de %s, tab[%d] = %.4f sec =====\n\n",c, i/2, lesTemps[i/2]);
         printf("*/ \n");
         exit(0);
     
